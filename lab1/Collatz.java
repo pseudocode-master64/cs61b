@@ -17,7 +17,7 @@ public class Collatz {
 
     public static void main(String[] args) {
         int num = 5;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             System.out.print(num + " ");
             num = nextNumber(num);
         }
