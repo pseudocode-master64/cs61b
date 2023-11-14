@@ -114,6 +114,8 @@ public class Model extends Observable {
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
 
+
+
         checkGameOver();
         if (changed) {
             setChanged();
@@ -137,7 +139,14 @@ public class Model extends Observable {
      *  Empty spaces are stored as null.
      * */
     public static boolean emptySpaceExists(Board b) {
-        // TODO: Fill in this function.
+        for (int i = 0; i < b.size(); i++) {
+            for (int j = 0; j < b.size(); j++){
+                if(b.tile(i, j) == null) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 
@@ -147,7 +156,13 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        // TODO: Fill in this function.
+        for  (int i = 0; i < b.size(); i++) {
+            for  (int j = 0; j < b.size(); j++) {
+                if (b.tile(i,j) != null && b.tile(i, j).value() == MAX_PIECE) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -158,7 +173,30 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
+        if (emptySpaceExists(b) == true) {
+            return true;
+        }
+
+        int counter = 0;
+        for  (int col = 0; col < b.size(); col++) {
+            for (int row = 0; row < b.size() - 1; row++) {
+                if (b.tile(col,row).value() == b.tile(col,row + 1).value()) {
+                    counter = counter + 1;
+                }
+            }
+        }
+
+        for  (int row = 0; row < b.size(); row++) {
+            for (int col = 0; col < b.size() - 1; col++) {
+                if (b.tile(col, row).value() == b.tile(col + 1, row).value()) {
+                    counter = counter + 1;
+                }
+            }
+        }
+
+        if (counter >= 2) {
+            return true;
+        }
         return false;
     }
 
